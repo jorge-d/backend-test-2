@@ -7,20 +7,25 @@ class WebhooksController < ApplicationController
       user_ids  = department_target.users.pluck(:id)
       numbers   = UserNumber.where(user: user_ids).pluck(:sip_endpoint)
 
-      r.Dial({
-        callerId: params[:From],
-        callbackUrl: 'http://26e71c18.ngrok.io/webhooks/after_dial',
-        callbackMethod: 'GET',
-        action: 'http://26e71c18.ngrok.io/webhooks/action',
-        method: 'GET',
-        timeout: 15
-      }) do |dial|
-        numbers.each do |number|
-          # dial.User number
+      if numbers.any?
+        r.Dial({
+          callerId: params[:From],
+          callbackUrl: "http://#{request.host}/webhooks/after_dial",
+          callbackMethod: 'GET',
+          action: "http://#{request.host}/webhooks/action",
+          method: 'GET',
+          timeout: 15
+        }) do |dial|
+          numbers.each do |number|
+            dial.User number
+          end
         end
+      else
+        r.addSpeak("There is no-one working here !")
+        r.addHangup({'reason' => 'BANKRUPT'})
       end
     else
-      r.addHangup({'reason' =>'INVALID_SERVICE'})
+      r.addHangup({'reason' => 'INVALID_SERVICE'})
     end
 
     render xml: r.to_s()
@@ -49,7 +54,7 @@ class WebhooksController < ApplicationController
 
     if params[:DialStatus] == 'no-answer'
       voicemailParams = {
-        'action' => "http://26e71c18.ngrok.io/webhooks/voicemail",
+        'action' => "http://#{request.host}/webhooks/voicemail",
         'method' => 'GET',
         'maxLength' => '30',
       }
