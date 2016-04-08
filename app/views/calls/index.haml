@@ -1,0 +1,22 @@
+%h3 Calls#index
+
+%table{style: 'width:100%;text-align:center;'}
+  %thead
+    %tr
+      %th Status
+      %th Date
+      %th From
+      %th To
+      %th Duration
+      %th Answered By
+      %th Voicemail
+  %tbody
+    - @calls.each do |call|
+      %tr
+        %td= call.CallStatus
+        %td= call.StartTime
+        %td= call.From
+        %td= call.To
+        %td= call.Duration
+        %td= link_to(call.user.name, user_path(call.user))  if call.user_id.present?
+        %td= link_to('Voicemail', call.voicemail_url)       if call.voicemail_url.present?

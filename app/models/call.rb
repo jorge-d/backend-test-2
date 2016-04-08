@@ -1,5 +1,5 @@
 class Call < ActiveRecord::Base
-  store :data, accessors: [:From, :To, :Duration], coder: JSON
+  store :data, accessors: [:CallStatus, :From, :To, :Duration, :StartTime], coder: JSON
 
   belongs_to :user
 
