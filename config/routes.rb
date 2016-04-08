@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     get 'answer'
     get 'fallback'
     get 'hangup'
+
+    get 'voicemail'
   end
 end

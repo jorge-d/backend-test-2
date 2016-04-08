@@ -11,14 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408183124) do
+ActiveRecord::Schema.define(version: 20160408210745) do
 
   create_table "calls", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "uuid",          default: "", null: false
+    t.string   "voicemail_url"
   end
+
+  add_index "calls", ["uuid"], name: "index_calls_on_uuid", unique: true
 
   create_table "company_numbers", force: :cascade do |t|
     t.string   "sip_endpoint"
