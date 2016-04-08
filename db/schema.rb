@@ -11,13 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922194944) do
+ActiveRecord::Schema.define(version: 20160408183124) do
+
+  create_table "calls", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "company_numbers", force: :cascade do |t|
     t.string   "sip_endpoint"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "name",         default: "", null: false
   end
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "company_number_id"
+  end
+
+  add_index "group_memberships", ["user_id", "company_number_id"], name: "index_group_memberships_on_user_id_and_company_number_id", unique: true
 
   create_table "user_numbers", force: :cascade do |t|
     t.integer  "user_id"
@@ -32,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150922194944) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "role"
   end
 
 end

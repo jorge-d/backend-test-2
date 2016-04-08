@@ -5,3 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+jane  = User.create!(name: "Jane", role: "CEO")
+luke  = User.create!(name: "Luke", role: "CTO")
+peter = User.create!(name: "Peter", role: "COO")
+
+mainNumber    = CompanyNumber.create!(sip_endpoint: 'sip:main160408183339@phone.plivo.com'    , name: 'Main'    )
+salesNumber   = CompanyNumber.create!(sip_endpoint: 'sip:sales160408161440@phone.plivo.com'   , name: 'Sales'   )
+supportNumber = CompanyNumber.create!(sip_endpoint: 'sip:support160408183416@phone.plivo.com' , name: 'Support' )
+
+mainNumber.users    << [jane, luke, peter]
+salesNumber.users   << [jane, peter]
+supportNumber.users << luke
+
+jane.numbers << UserNumber.create!(sip_endpoint: 'sip:Jane160408155457@phone.plivo.com')
