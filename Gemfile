@@ -34,7 +34,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'plivo'
 
-gem 'simple_form'
 gem 'haml-rails'
 
 group :development, :test do

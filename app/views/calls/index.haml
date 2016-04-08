@@ -18,5 +18,6 @@
         %td= call.From
         %td= call.To
         %td= call.Duration
-        %td= link_to(call.user.name, user_path(call.user))  if call.user_id.present?
+        %td
+          %strong= call.user.name if call.user_id.present?
         %td= link_to('Voicemail', call.voicemail_url)       if call.voicemail_url.present?
