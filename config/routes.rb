@@ -5,5 +5,8 @@ Rails.application.routes.draw do
     get 'hangup'
 
     get 'voicemail'
+
+    get 'after_dial'
+    get 'action'
   end
 end
