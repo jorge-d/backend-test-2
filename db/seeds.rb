@@ -20,3 +20,5 @@ salesNumber.users   << [jane, peter]
 supportNumber.users << luke
 
 jane.numbers << UserNumber.create!(sip_endpoint: 'sip:Jane160408155457@phone.plivo.com')
+luke.numbers << UserNumber.create!(sip_endpoint: 'sip:luke160409112049@phone.plivo.com')
+peter.numbers << UserNumber.create!(sip_endpoint: 'sip:peter160409112128@phone.plivo.com')
