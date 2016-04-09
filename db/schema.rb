@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160408210745) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "calls", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "data"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160408210745) do
     t.string   "voicemail_url"
   end
 
-  add_index "calls", ["uuid"], name: "index_calls_on_uuid", unique: true
+  add_index "calls", ["uuid"], name: "index_calls_on_uuid", unique: true, using: :btree
 
   create_table "company_numbers", force: :cascade do |t|
     t.string   "sip_endpoint"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160408210745) do
     t.integer "company_number_id"
   end
 
-  add_index "group_memberships", ["user_id", "company_number_id"], name: "index_group_memberships_on_user_id_and_company_number_id", unique: true
+  add_index "group_memberships", ["user_id", "company_number_id"], name: "index_group_memberships_on_user_id_and_company_number_id", unique: true, using: :btree
 
   create_table "user_numbers", force: :cascade do |t|
     t.integer  "user_id"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160408210745) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "user_numbers", ["user_id"], name: "index_user_numbers_on_user_id"
+  add_index "user_numbers", ["user_id"], name: "index_user_numbers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -54,4 +57,5 @@ ActiveRecord::Schema.define(version: 20160408210745) do
     t.string   "role"
   end
 
+  add_foreign_key "user_numbers", "users"
 end
